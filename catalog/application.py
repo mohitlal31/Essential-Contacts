@@ -82,9 +82,6 @@ def googleAuthenticate():
            % access_token)
     h = httplib2.Http()
     result = json.loads(h.request(url, 'GET')[1])
-    # print("result = ")
-    # print(result)
-    # If there was an error in the access token info, abort.
     if result.get('error') is not None:
         response = make_response(json.dumps(result.get('error')), 500)
         response.headers['Content-Type'] = 'application/json'
@@ -102,7 +99,6 @@ def googleAuthenticate():
     if result['issued_to'] != CLIENT_ID:
         response = make_response(
             json.dumps("Token's client ID does not match app's."), 401)
-        # print "Token's client ID does not match app's."
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -120,20 +116,12 @@ def googleAuthenticate():
     login_session['access_token'] = credentials.access_token
     login_session['google_auth_id'] = google_auth_id
     login_session['email'] = credentials.id_token['email']
-    # print("login_session['access_token'] = ")
-    # print(login_session['access_token'])
-    # print("login_session['google_auth_id'] = ")
-    # print(login_session['google_auth_id'])
-    # print("login_session['email'] = ")
-    # print(login_session['email'])
 
     # See if a user exists, if it doesn't make a new one
     userId = getUserID(login_session['email'])
     if not userId:
         userId = createUser(login_session)
     login_session['user_id'] = userId
-    # print("login_session['user_id'] = ")
-    # print(login_session['user_id'])
 
     response = make_response(
         json.dumps("Login Successful"), 200)
@@ -170,43 +158,15 @@ def googleSignOut():
     if access_token is None:
         print 'Access Token is None'
         print 'Current user not connected'
-        # response = make_response(
-        #     json.dumps('Current user not connected.'), 401)
-        # response.headers['Content-Type'] = 'application/json'
-        # response = make_response(redirect(url_for('showAllCategories')), 307)
-        # login_session.clear()
-        # return redirect(url_for('showAllCategories'))
-        # return response
-    print('In googleSignOut access token is ' + access_token)
-    print 'Email address is: '
-    print login_session['email']
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']  # NOQA
-    print('url to revoke access token is: ')
-    print(url)
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
-    print 'result is '
-    print result
     if result['status'] == '200':
-        # response = make_response(json.dumps('Successfully disconnected.'), 200)  # NOQA
-        # response = make_response(redirect(url_for('showAllCategories')), 307)
-        # response.headers['Content-Type'] = 'application/json'
         print('Successfully disconnected')
-        # login_session.clear()
-        # return redirect(url_for('showAllCategories'))
-        # return response
-
     else:
         # For whatever reason, the given token was invalid.
-        # response = make_response(
-        #     json.dumps('Failed to revoke token for given user.', 400))
-        # response.headers['Content-Type'] = 'application/json'
-        # response = make_response(redirect(url_for('showAllCategories')), 307)
         print('Failed to revoke token for given user.')
         print('For whatever reason, the given token was invalid')
-        # login_session.clear()
-        # return redirect(url_for('showAllCategories'))
-        # return response
     login_session.clear()
     flash("Logged out successfully")
     return redirect(url_for('showAllCategories'))
@@ -216,9 +176,6 @@ def googleSignOut():
 @app.route('/categories/')
 def showAllCategories():
     categories = Session.query(Category).order_by(Category.id)
-    # for category in categories:
-    #     print("category.name = " + category.name)
-    #     print("category.user_id = " + str(category.user_id))
     Session.remove()
     if 'user_id' not in login_session:
         return render_template('public_categories.html', categories=categories)
