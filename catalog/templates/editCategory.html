@@ -1,0 +1,39 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Edit Category</h1>
+  <form action="{{ url_for('editCategory', category_name=category_name) }}" method="post">
+    <label for="category_name">Category:</label>
+    <input type="text" id="category_name" name="edited_category_name" size="30" placeholder="{{ category_name }}" required>
+    <br>
+    <button type="submit" name="submit">Submit</button>
+    <a href="{{ url_for('showAllCategories') }}">Cancel</a>
+  </form>
+</body>
+
+</html> -->
+
+
+{% extends "base.html" %}
+
+{% block heading %}
+  <h1>Edit Category Name: {{ category_name }}</h1>
+{% endblock %}
+
+{% block main %}
+  <form action="{{ url_for('editCategory', category_name=category_name) }}" method="post">
+    <label for="category_name">Category:</label>
+    <input type="text" id="category_name" name="edited_category_name" size="30" placeholder="{{ category_name }}" required>
+    <br>
+    <button type="submit" name="submit">Submit</button>
+    <a href="{{ url_for('showAllCategories') }}">Cancel</a>
+  </form>
+{% endblock %}

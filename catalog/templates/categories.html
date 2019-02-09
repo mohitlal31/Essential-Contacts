@@ -1,0 +1,58 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Essential Services</title>
+</head>
+
+<body>
+  <main>
+    <h1>Categories</h1>
+    <ul>
+      {% for category in categories %}
+      <li>
+        <a href="{{ url_for('showCategory', category_name=category.name) }}">{{category.name}}</a>
+        <br>
+        {% if category.user_id == user_id %}
+        <a href="{{ url_for('editCategory', category_name=category.name) }}">Edit</a>
+        <a href="{{ url_for('deleteCategory', category_name=category.name) }}">Delete</a>
+        <br>
+        <br>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    <a href="{{ url_for('addCategory') }}">Add Category</a>
+  </main>
+
+
+</body>
+
+</html> -->
+
+{% extends "base.html" %}
+
+{% block heading %}
+<h1>Categories</h1>
+{% endblock %}
+
+{% block main %}
+<ul>
+  {% for category in categories %}
+  <li>
+    <a href="{{ url_for('showCategory', category_name=category.name) }}">{{category.name}}</a>
+    <br>
+    {% if category.user_id == user_id %}
+    <a href="{{ url_for('editCategory', category_name=category.name) }}">Edit</a>
+    <a href="{{ url_for('deleteCategory', category_name=category.name) }}">Delete</a>
+    <br>
+    <br>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+<a href="{{ url_for('addCategory') }}">Add Category</a>
+{% endblock %}
