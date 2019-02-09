@@ -4,6 +4,7 @@ from flask import session as login_session
 from flask_cors import CORS
 
 from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from database_setup import engine, Base, Category, Person, User
 
 from googleapiclient import discovery
@@ -146,9 +147,14 @@ def getUserInfo(user_id):
 
 
 def getUserID(email):
-    user = Session.query(User).filter_by(email=email).one()
-    Session.remove()
-    return user.id
+    try:
+        user = Session.query(User).filter_by(email=email).one()
+        Session.remove()
+        return user.id
+    except MultipleResultsFound:
+        print "getUserID(): MultipleResultsFound"
+    except NoResultFound:
+        print "getUserID(): NoResultFound"
 
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
