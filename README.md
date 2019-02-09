@@ -35,5 +35,5 @@ Once it is up and running, type `vagrant ssh`. This will log your terminal into 
 
 #### Run the project!
 
-Change directory to the /catalog directory by typing `cd /catalog`. Once inside the /catalog directory, type `ls` to see a list of files and directories. You should be able to see a file called **application.py**. Run this file by typing `python application.py`.
+Change directory to the /catalog directory by typing `cd /vagrant/catalog`. Once inside the /catalog directory, type `ls` to see a list of files and directories. You should be able to see a file called **application.py**. Run this file by typing `python application.py`.
 Now open your favorite browser and enter the URL `localhost:5000`. That's about it. This should open up the application. Enjoy!
