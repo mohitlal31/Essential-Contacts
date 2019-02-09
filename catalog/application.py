@@ -247,6 +247,7 @@ def addCategory():
         Session.add(newCategory)
         Session.commit()
         Session.remove()
+        flash("Successfully added a new category")
         return redirect(url_for('showAllCategories'))
     else:
         return render_template('newCategory.html')
@@ -290,6 +291,7 @@ def editCategory(category_name):
         Session.add(editedCategory)
         Session.commit()
         Session.remove()
+        flash("Successfully edited category name")
         return redirect(url_for('showAllCategories'))
     else:
         return render_template('editCategory.html', category_name=category_name)  # NOQA
@@ -305,6 +307,7 @@ def deleteCategory(category_name):
         Session.delete(categoryToBeDeleted)
         Session.commit()
         Session.remove()
+        flash("Successfully deleted the category")
         return redirect(url_for('showAllCategories'))
     else:
         return render_template('deleteCategory.html', category_name=category_name)  # NOQA
@@ -326,6 +329,7 @@ def addPerson(category_name):
             Session.add(newPerson)
             Session.commit()
             Session.remove()
+            flash("Successfully added a new entry")
             return redirect(url_for('showCategory', category_name=category_name))  # NOQA
     else:
         return render_template('newPerson.html', category_name=category_name)  # NOQA
@@ -348,6 +352,7 @@ def editPerson(category_name, person_id):
         Session.add(editedPerson)
         Session.commit()
         Session.remove()
+        flash("Successfully edited the entry")
         return redirect(url_for('showCategory', category_name=category_name))
     else:
         return render_template('editPerson.html',
@@ -366,6 +371,7 @@ def deletePerson(category_name, person_id):
         Session.delete(personToBeDeleted)
         Session.commit()
         Session.remove()
+        flash("Successfully deleted the entry")
         return redirect(url_for('showCategory', category_name=category_name))
     else:
         return render_template('deletePerson.html',
