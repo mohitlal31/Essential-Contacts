@@ -24,7 +24,7 @@ Vagrant is the software that configures the VM and lets you share files between 
 #### Download the project
 
 Download the project zip file to you computer and unzip the file. Or clone this repository from the terminal by typing
-`https://github.com/mohitlal31/Essential-Contacts.git`
+`git clone https://github.com/mohitlal31/Essential-Contacts.git`
 
 #### Run the virtual machine!
 
