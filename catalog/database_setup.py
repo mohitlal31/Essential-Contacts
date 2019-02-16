@@ -9,6 +9,9 @@ Base = declarative_base()
 
 
 class User(Base):
+    """
+    Registered user's information is stored in the User table
+    """
     __tablename__ = 'user'
 
     email = Column(String, nullable=False)
@@ -16,6 +19,10 @@ class User(Base):
 
 
 class Category(Base):
+    """
+    All the categories like plumber, carpenter etc. are stored
+    in the Category table
+    """
     __tablename__ = 'category'
 
     name = Column(String, nullable=False)
@@ -33,6 +40,10 @@ class Category(Base):
 
 
 class Person(Base):
+    """
+    The Person's data belonging to any category
+    is stored in the Person table
+    """
     __tablename__ = 'person'
 
     name = Column(String, nullable=False)
@@ -52,7 +63,8 @@ class Person(Base):
             'address': self.address,
             'mobile': self.mobile,
             'id': self.id,
-            'category': self.category.name
+            'category': self.category.name,
+            'user_id': self.user_id,
         }
 
 
